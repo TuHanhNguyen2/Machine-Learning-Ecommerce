@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero is-primary is-bold is-medium">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Ecommerce AI: Using Computer Vision to Automatic Labelling Products</h1>
+        <h2 class="subtitle"><strong>Powered by Tensorflow, Flask and Python.</strong></h2>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+        <h1 class="title">Hot Deals in Store</h1><br>
+      </div>
+      <div class="container">
+        <div class="tile is-ancester">
+          {% for column in [0,1,2] %}
+          <div class="tile is-parent is-4 is-vertical">
+            <div class="tile is-child"> 
+              {% for product in products[column::3] %}
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-5by4">
+                    <img src="https://storage.cloud.google.com/{{ bucket }}/{{ product.image }}" onerror="this.src='https://storage.cloud.google.com/{{bucket}}/placeholder.png'">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <h1 class="title is-spaced">{{ product.name }}</h1>
+                  <p class="subtitle is-6">{{ product.description }}</p>
+                  <p class="subtitle is-4">${{ product.price }}</p>
+                  <p>
+                    {% for label in product.labels[:3] %}
+                    <span class="tag is-light is-medium">{{ label }}</span>
+                    {% endfor %}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <a class="card-footer-item" href="/checkout?id={{product.id}}">Purchase</a>
+                </div>
+              </div>
+              <br>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dream Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+  <script src="/static/js/initFirebase.js"></script>
+  <script src="/static/js/signInOutWithGoogle.js"></script>
+  <script src="/static/js/script.js"></script>
+  
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+</head>
+<body>
+  <nav class="navbar has-background-dark">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-light" href="/">Tu H. Nguyen Store</a>
+      </div>
+      {% block navbar_end %}
+      <div class="navbar-end">
+        {% if auth_context %}
+        <div class="navbar-item">
+          <a id="username" class="has-text-white">{{ auth_context.get('username') }} ({{ auth_context.get('email') }})</a>
+        </div>
+        <div class="navbar-item">
+          <a id="sign-out-control" class="has-text-white" onclick="signOutWithGoogle()"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary has-background-info" href="/sell"><strong>Sell</strong></a>
+          </div>
+        </div>
+        {% else %}
+        <div class="navbar-item">
+            <a id="sign-in-control" class="has-text-white" href="/signin">Sign in <i class="fab fa-google"></i></a>
+        </div>
+        {% endif %}
+      </div>
+      {% endblock %}
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>

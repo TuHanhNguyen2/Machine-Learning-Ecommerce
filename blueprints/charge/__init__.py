@@ -1,0 +1,1 @@
+from .blueprint import charge_page

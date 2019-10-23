@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="subtitle">You are ordering</h2>
+      </div>
+      <br>
+      
+      {% for product in products %}
+        <div class="container">
+        <article class="media">
+            <figure class="media-left">
+            <p class="image is-128x128">
+            <img src="https://storage.cloud.google.com/{{bucket}}/{{ product.image }}" onerror="this.src='https://storage.cloud.google.com/{{bucket}}/placeholder.png'">
+            </p>
+            </figure>
+            <div class="media-content">
+            <div class="content">
+            <p>
+                <strong>{{ product.name }}</strong>
+                <br>
+                {{ product.description }}
+                <h1 class="title has-text-weight-light">${{ product.price }}</h1>
+            </p>
+            </div>
+            </div>
+        </article>
+        </div>
+        {% endfor %}
+
+    </div>
+  </section>
+  <form id="payment-form" action="/charge" method="POST">
+    {{ form.csrf_token }}
+    {% for i in range(products|length) %}
+    <input type="hidden" id="product_id" name="product_ids-{{i}}" value="{{ products[i].id }}">
+    {% endfor %}
+    <input type="hidden" id="address" name="address" value="">
+    <input type="hidden" id="city" name="city" value="">
+    <input type="hidden" id="email" name="email" value="">
+    <input type="hidden" id="mobile" name="mobile" value="">
+  </form>
+
+  <section class="hero is-dark is-bold">
+    <div class="hero-body">
+      <div class="container"><h1 class="title">Shipping</h1></div>
+      <br><br><br>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label has-text-grey">Address</label>
+              <p class="control has-icons-left">
+                <input id="address_input" class="input has-background-dark has-text-light" type="text" style="border: none;">
+                <span class="icon is-small is-left"><i class="fas fa-map-marker-alt"></i></span>
+              </p>
+            </div>
+            <div class="field">
+              <label class="label has-text-grey">City</label>
+              <p class="control has-icons-left">
+                <input id="city_input" class="input has-background-dark has-text-light" type="text" style="border: none;">
+                <span class="icon is-small is-left"><i class="fas fa-city"></i></span>
+              </p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label has-text-grey">Email</label>
+              <p class="control has-icons-left">
+                <input id="email_input" class="input has-background-dark has-text-light" type="email" style="border: none;">
+                <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+              </p>
+            </div>
+            <div class="field">
+              <label class="label has-text-grey">Mobile</label>
+              <p class="control has-icons-left">
+                <input id="mobile_input" class="input has-background-dark has-text-light" type="tel" style="border: none;">
+                <span class="icon is-small is-left"><i class="fas fa-mobile"></i></span>
+              </p>
+            </div>
+          </div>
+          <div class="column">
+            <!-- <p class="label has-text-light">A confirmation email will be sent to your mailbox after your purchase.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light is-bold">
+    <div class="hero-body">
+        <div class="container"><h1 class="title">Payment</h1></div>
+        <br><br><br>
+        <div class="container">
+        <div class="columns">
+            <div class="column is-one-fifth">
+            <button id="stripe_pay_button" class="button is-fullwidth has-background-dark has-text-white" style="border: none;" onclick="payButtonClicked()">Pay</button>
+            </div>
+        </div>
+        </div>
+    </div>
+  </section>  
+{% endblock %}
