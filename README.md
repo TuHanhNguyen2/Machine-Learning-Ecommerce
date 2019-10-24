@@ -11,4 +11,4 @@ Click on sign in button at the top right corner, choose your google account (thi
 Now click "sell" button at the top right corner. You can choose to drag& drop the picture of your product or upload it from your pc. Make sure the picture is on the common format like .png, .jpg, .gif to avoid the bug. Next, fill in the forms and click "submit" to post your deal on the website.
 
 The built-in machine learning model will automatically categorizes your product. In the picture below, the product are classifed as "iphonexr".
-[Imgur](https://i.imgur.com/WTzn2fl.png)
+[](https://i.imgur.com/WTzn2fl.png)
